@@ -116,7 +116,7 @@ function upfg {
   local ix is rd:normalized.
   set iz to  vcrs(ix,iy).
   local vd is vdval * iz.
-  local vgop is vd - vgrav + vbias.
+  local vgop is vd - v_ - vgrav + vbias.
   local dvgo is 0.0*(vgop - vgo).
   set vgo to  vgop + dvgo.
 

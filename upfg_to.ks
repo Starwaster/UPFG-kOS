@@ -98,7 +98,7 @@ local upfg_debug is lexicon().
 local upfg_internal is lexicon().
 local upfg_guidance is lexicon().
 local out is lexicon().
-local tc is 0.5.
+local tc is 0.1.
 until 0 {
   set state to update(state).
   local cser is lexicon().
