@@ -117,7 +117,7 @@ until 0 {
   if guided["T"] < tc {
     break.
   }
-  if state["velocity"] > trgt["velocity"] {
+  if state["velocity"]:mag > trgt["velocity"] {
     break.
   }
   print "Time               : " + round(state["time"],2) + " s".
