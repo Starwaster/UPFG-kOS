@@ -114,6 +114,12 @@ until 0 {
   set g_pitch to A - B*(state["time"] - tcall) + C.
   set g_pitch to arcsin(min(1,max(-1,g_pitch))).
   //set g_yaw to inst_az(inc,trgt["velocity"]).
+  if guided["T"] < tc {
+    break.
+  }
+  if state["velocity"] > trgt["velocity"] {
+    break.
+  }
   print "Time               : " + round(state["time"],2) + " s".
   print "Target Apoapsis    : " + apo + " km".
   print "Current Apoapsis   : " + round(ship:apoapsis/1000,2) + " km".
