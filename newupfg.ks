@@ -61,7 +61,7 @@ function upfg {
   local J_ is L_*tau - ve * tgo.          //b1
   local S_ is L_*tgo - J_.                //c0
   local Q_ is S_*tau - ve * tgo^2 / 2.    //c1
-  local P_ is Q_*tau - ve * tgo^3 / 6.
+  local P_ is Q_*tau - ve * tgo^3 / 6.    //c2
   local H_ is J_*tgo - Q_.
 
   //BLOCK 5
