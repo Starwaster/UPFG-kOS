@@ -101,10 +101,11 @@ function upfg {
   //BLOCK 7
   local rc1 is r_ - 0.1*rthrust - vthrust*tgo/30.
   local vc1 is v_ + 1.2*rthrust/tgo - 0.1*vthrust.
-  local send_me is list(rc1,vc1,tgo,cser).
-  my_conn:sendmessage(send_me).
-  wait until core:messages:length > 0.
-  local CSEOut is core:messages:pop:content.
+  //local send_me is list(rc1,vc1,tgo,cser).
+  //my_conn:sendmessage(send_me).
+  //wait until core:messages:length > 0.
+  //local CSEOut is core:messages:pop:content.
+  local CSEOut is CSEroutine(rc1,vc1,tgo,cser).
   local rc2 is CSEOut["r"].
   local vc2 is CSEOut["v"].
   set cser to CSEOut["last"].
