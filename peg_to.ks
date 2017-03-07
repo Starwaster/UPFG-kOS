@@ -105,10 +105,14 @@ until 0 {
     set guided to peg(tc,trgt,state,guided).
     local t2 is guided["T"].
     if abs(t2-t1)/t1 < 0.05 {
-      set g_pitch to guided["A"] - guided["B"]*(state["time"] - tcall) + guided["C"].
-      set g_pitch to arcsin(min(1,max(-1,g_pitch))).
+      set A to guided["A"].
+      set B to guided["B"].
+      set C to guided["C"].
     }
+    set tcall to state["time"].
   }
+  set g_pitch to A - B*(state["time"] - tcall) + C.
+  set g_pitch to arcsin(min(1,max(-1,g_pitch))).
   //set g_yaw to inst_az(inc,trgt["velocity"]).
   print "Time               : " + round(state["time"],2) + " s".
   print "Target Apoapsis    : " + apo + " km".
