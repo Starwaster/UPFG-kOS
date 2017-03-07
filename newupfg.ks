@@ -33,15 +33,10 @@ function upfg {
   local tau is 0.
   local tb is 0.
 
-  list engines in eng.
-  for e in eng {
-    if e:ignition {
-      set fT to fT + e:thrust.
-      set ve to e:isp * g0.
-    }
-  }
+  set fT to state["thrust"].
+  set ve to state["ve"].
   set md to fT/ve.
-  set acc to fT/m_.
+  set acc to state["acc"].
   set tau to ve/acc.
   set tb to vehicle["maxT"].
 

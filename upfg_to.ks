@@ -21,7 +21,7 @@ global t0 is time:seconds + trgt["eta"].
 //global t is time:seconds - t0.
 local state is lexicon().
 global g_pitch is 90.
-global g_yaw is inst_az(inc,trgt["velocity"]).
+global g_yaw is trgt["azimuth"].
 lock steering to heading(g_yaw,g_pitch).
 global throt is 0.
 lock throttle to throt.
