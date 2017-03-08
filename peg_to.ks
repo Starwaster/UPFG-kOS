@@ -22,6 +22,7 @@ global t0 is time:seconds + trgt["eta"].
 local state is lexicon().
 global g_pitch is 90.
 global g_yaw is inst_az(inc,trgt["velocity"]).
+//lock g_yaw to inst_az(inc,trgt["velocity"]).
 lock steering to heading(g_yaw,g_pitch).
 global throt is 0.
 lock throttle to throt.
@@ -44,11 +45,11 @@ until 0 {
     set ignition to 2.
     set t0 to time:seconds.
   }
-  if ship:velocity:surface:mag>60 {
+  if ship:velocity:surface:mag>53 {
     set kick_pitch to 90 - ship:velocity:surface:mag/state["time"].
     break.
   }
-  wait 0.2.
+  wait 0.
 }
 //sas off.
 
@@ -68,7 +69,7 @@ until 0 {
   print "Current Thrust     : " + round(state["thrust"],2) + " kN".
   local turn_pitch is 90 - vang(ship:up:vector,ship:srfprograde:vector).
   if g_pitch > kick_pitch {
-    set g_pitch to g_pitch - 0.2.
+    set g_pitch to g_pitch - 0.05.
   }
   else if turn_pitch < g_pitch {
     set g_pitch to turn_pitch.
@@ -77,7 +78,8 @@ until 0 {
     stage.
     break.
   }
-  wait 0.2.
+  set throt to throttle_control(state).
+  wait 0.
 }
 
 print "Staging ! Ullage for 3 Seconds".
@@ -113,8 +115,11 @@ until 0 {
   }
   set g_pitch to A - B*(state["time"] - tcall) + C.
   set g_pitch to arcsin(min(1,max(-1,g_pitch))).
-  //set g_yaw to inst_az(inc,trgt["velocity"]).
-  if guided["T"] < tc {
+  if inc < ship:orbit:inclination {
+    set g_yaw to inst_az(inc,trgt["velocity"]).
+  }
+  set throt to throttle_control(state).
+  if guided["T"] < 0.01 {
     break.
   }
   if state["velocity"]:mag > trgt["velocity"] {

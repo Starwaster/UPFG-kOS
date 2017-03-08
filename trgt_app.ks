@@ -37,7 +37,7 @@ function launchTargeting {
   local a_ is (bigR + per*1000 + bigR + apo*1000)/2.
   //local e_ is 0.
   //local i_ is inc.
-  local orbit_parameter is list(a_,0,inc,lan,90,1).
+  local orbit_parameter is list(a_,0,inc,lan,0,0).
   local trgt is lexicon().
   set trgt["parameter"] to orbit_parameter.
   set trgt["azimuth"] to azimuth.

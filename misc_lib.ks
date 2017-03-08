@@ -11,6 +11,26 @@ function list_of {
   return out.
 }
 
+function throttle_control {
+  parameter state is lexicon().
+  parameter G_limit is 4*g0.
+  parameter Q_limit is 30.
+
+  set t_ to time:seconds.
+  local PID is PIDloop(0.1,0.01,0.01,0.01,1).
+  set PID:setpoint to 0.
+  local input1 is state["acc"] - G_limit.
+  set G_throttle to PID:UPDATE(t_, input1).
+
+
+  local PID is PIDloop(0.5,0.05,0.05,0.01,1).
+  set PID:setpoint to 0.
+  local input2 is SHIP:Q*constant:atmtokpa - Q_limit.
+  set Q_throttle to PID:UPDATE(t_, input2).
+
+  return min(G_throttle,Q_throttle).
+}
+
 function getAngleFromFrame {
   parameter vectors.
   parameter frame.

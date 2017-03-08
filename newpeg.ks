@@ -28,7 +28,7 @@ function peg {
     set oldA to (z0 - b1*oldB)/b0.
   }
   set angM to vcrs(v(alti,0,0),v(vr,vt,0)):mag.
-  set tgtV to sqrt(mu/tgt).
+  set tgtV to trgt["velocity"].
   set tgtM to vcrs(v(tgt,0,0),v(0,tgtV,0)):mag.
   set dMom to tgtM - angM.
 

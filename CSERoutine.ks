@@ -167,7 +167,7 @@ function USS {
   set du1 to xarg/4.
   set u1 to du1.
   set f7 to -a*du1^2.
-  set k to 3.
+  set k to 1.
   until k >= kmax {
     set du1 to (f7*du1) / (k*(k-1)).
     set u1old to u1.
@@ -175,7 +175,7 @@ function USS {
     if u1 = u1old {
       break.
     }
-    set k to k+2.
+    set k to k+1.
   }
   return u1.
 }
