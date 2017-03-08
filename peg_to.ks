@@ -1,3 +1,4 @@
+parameter turnspeed.
 parameter apo.
 parameter per.
 parameter inc.
@@ -45,7 +46,7 @@ until 0 {
     set ignition to 2.
     set t0 to time:seconds.
   }
-  if ship:velocity:surface:mag>53 {
+  if ship:velocity:surface:mag>turnspeed {
     set kick_pitch to 90 - ship:velocity:surface:mag/state["time"].
     break.
   }
@@ -69,7 +70,7 @@ until 0 {
   print "Current Thrust     : " + round(state["thrust"],2) + " kN".
   local turn_pitch is 90 - vang(ship:up:vector,ship:srfprograde:vector).
   if g_pitch > kick_pitch {
-    set g_pitch to g_pitch - 0.05.
+    set g_pitch to g_pitch - 0.02.
   }
   else if turn_pitch < g_pitch {
     set g_pitch to turn_pitch.
