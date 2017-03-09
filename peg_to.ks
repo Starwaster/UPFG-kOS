@@ -1,9 +1,9 @@
-parameter turnspeed.
 parameter apo.
 parameter per.
 parameter inc.
 parameter lan_d.
 parameter slip.
+parameter turnspeed is 50.
 
 //runoncepath("newupfg").
 runoncepath("newpeg").
@@ -80,7 +80,7 @@ until 0 {
     break.
   }
   set throt to throttle_control(state).
-  wait 0.
+  wait 0.02.
 }
 
 print "Staging ! Ullage for 3 Seconds".

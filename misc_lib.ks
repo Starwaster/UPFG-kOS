@@ -17,18 +17,27 @@ function throttle_control {
   parameter Q_limit is 30.
 
   set t_ to time:seconds.
-  local PID is PIDloop(0.1,0.01,0.01,0.01,1).
-  set PID:setpoint to 0.
-  local input1 is state["acc"] - G_limit.
-  set G_throttle to PID:UPDATE(t_, input1).
+  // F = m*a
+  // a = F/m
+  // Hardcoded throttle limit for Merlin engines from SpaceX
+  //TODO:Replace this with PID loop
+  local max_thrust is ship:maxthrust.
+  local min_thrust is 0.4*max_thrust.
+  local req_thrust is ship:mass*G_limit.
+  if max_thrust = 0 {
+    return 0.
+  }
+  else {
+    set G_throttle to (req_thrust - min_thrust)/(max_thrust - min_thrust).
+  }
 
-
+  // Working loop with 10% SSE
   local PID is PIDloop(0.5,0.05,0.05,0.01,1).
   set PID:setpoint to 0.
   local input2 is SHIP:Q*constant:atmtokpa - Q_limit.
   set Q_throttle to PID:UPDATE(t_, input2).
 
-  return min(G_throttle,Q_throttle).
+  return max(min(G_throttle,Q_throttle),0.01).
 }
 
 function getAngleFromFrame {
@@ -48,14 +57,6 @@ function getAngleFromFrame {
     }
     else return angle.
   }
-}
-
-function safeAcosd {
-  parameter angle.
-
-  set angle to min(angle, 1).
-  set angle to max(angle, -1).
-  return arccos(angle).
 }
 
 function swapYZ {
